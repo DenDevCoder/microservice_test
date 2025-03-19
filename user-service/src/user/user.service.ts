@@ -20,4 +20,9 @@ export class UserService {
   async create(email: string, password: string) {
     return await this.prisma.user.create({ data: { email, password } });
   }
+
+  @CatchError('problem with getting user')
+  async findUserByEmail(email: string) {
+    return await this.prisma.user.findUnique({ where: { email } });
+  }
 }
