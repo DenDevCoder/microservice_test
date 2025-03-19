@@ -5,6 +5,7 @@ import { createUserDto } from './dto/create_user.dto';
 import {
   ClientProxy,
   ClientProxyFactory,
+  MessagePattern,
   Transport,
 } from '@nestjs/microservices';
 
@@ -22,6 +23,11 @@ export class UserController {
         },
       },
     });
+  }
+
+  @MessagePattern('get_user_by_email')
+  async getUserByEmail(email: string) {
+    return await this.userService.findUserByEmail(email);
   }
 
   @Get()
